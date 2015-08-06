@@ -3,11 +3,6 @@ require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
 
-  # use Rack::Session::Cookie, :key => 'rack.session',
-  #                          :path => '/',
-  #                          :secret => 'your_secret'
-
-
 enable :sessions
 
   get '/' do
@@ -25,14 +20,15 @@ enable :sessions
     @visitor = session[:name]
     puts @visitor
     $game.player_2.place_ship Ship.submarine, 'A1', :horizontally
-    # $game.player_2.place_ship Ship.destroyer, 'B3', :vertically
-    # $game.player_2.place_ship Ship.cruiser, 'F2', :horizontally
-    # $game.player_2.place_ship Ship.battleship, 'J3', :vertically
-    # $game.player_2.place_ship Ship.aircraft_carrier, 'A10', :horizontally
+    $game.player_2.place_ship Ship.destroyer, 'B3', :vertically
+    $game.player_2.place_ship Ship.cruiser, 'F2', :horizontally
+    $game.player_2.place_ship Ship.battleship, 'J3', :vertically
+    $game.player_2.place_ship Ship.aircraft_carrier, 'A10', :horizontally
     erb :newgame
   end
 
   post '/newgame' do
+    @visitor = session[:name]
     @ship = params[:ship]
     @coordinate = params[:coordinate]
     @direction = params[:direction]
@@ -66,7 +62,7 @@ enable :sessions
   # start the server if ruby file executed directly
   run! if app_file == $0
 
-
+# This method is not being use for now. We hard coded coordinates instead
 
   def random_coord
     letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].sample
