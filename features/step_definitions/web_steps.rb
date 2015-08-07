@@ -228,6 +228,44 @@ end
 Then(/^I should visit the game page$/) do
    visit '/game'
 end
+##################
+
+Given(/^I am joining the game$/) do
+  in_browser(:chrome) do
+    visit '/name'
+    fill_in 'name', with: 'Charles'
+    click_on 'Submit'
+  end
+end
+
+Given(/^someone else joins the same game$/) do
+  in_browser(:safari) do
+    visit '/name'
+    fill_in 'name', with: 'James'
+    click_on 'Submit'
+  end
+end
+
+Then(/^we should see different things :\)$/) do
+  in_browser(:chrome) do
+    expect('/newgame').to have_content 'Charles'
+  end
+
+  in_browser(:safari) do
+    expect('newgame').to have_content 'James'
+  end
+end
+
+
+
+def in_browser(name)
+  old_session           = Capybara.session_name
+  Capybara.session_name = name
+  yield
+  Capybara.session_name = old_session
+end
+
+
 
 
 # Then(/^a "([^"]*)" is created$/) do |arg1|

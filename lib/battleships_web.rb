@@ -18,7 +18,6 @@ enable :sessions
   get '/newgame' do
     $game = Game.new Player, Board
     @visitor = session[:name]
-    puts @visitor
     $game.player_2.place_ship Ship.submarine, 'A1', :horizontally
     $game.player_2.place_ship Ship.destroyer, 'B3', :vertically
     $game.player_2.place_ship Ship.cruiser, 'F2', :horizontally
@@ -35,15 +34,18 @@ enable :sessions
     @shoot_at = params[:shoot_at]
     $game.player_1.place_ship Ship.send(@ship), @coordinate.capitalize, @direction.to_sym
     puts @shoot_at
+    p session
     erb :newgame
   end
 
   get '/play_single' do
     @visitor = session[:name]
+    p session[:name]
     erb :play_single
   end
 
   post '/play_single' do
+    @visitor = session[:name]
     @coords = params[:coord]
     $game.player_1.shoot @coords.capitalize.to_sym
     $game.player_2.shoot random_coord.to_sym

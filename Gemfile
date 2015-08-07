@@ -11,4 +11,5 @@ group :development, :test do
   gem 'rspec'
   gem 'shotgun'
   gem 'battleships'
+  gem 'rspec-sinatra'
 end

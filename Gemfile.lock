@@ -51,6 +51,8 @@ GEM
     rspec-mocks (3.3.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
+    rspec-sinatra (0.1.2)
+      templater (>= 1.0.0)
     rspec-support (3.3.0)
     shotgun (0.9.1)
       rack (>= 1.0)
@@ -76,5 +78,6 @@ DEPENDENCIES
   cucumber-sinatra
   launchy
   rspec
+  rspec-sinatra
   shotgun
   sinatra
